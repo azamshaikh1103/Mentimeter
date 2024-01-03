@@ -1,12 +1,11 @@
-import http from 'http';
-import { Server } from "socket.io";
 import { IoManager } from './managers/IoManager';
-const server = http.createServer();
 
-const io = new Server(server);
-const IoManager = new IoManager(io);
+const io = IoManager.getIo();
 
-io.on('connection', client => {
+io.listen(3000);
+
+
+io.on('connection', (client) => {
   client.on('event', data => { 
     const type = data.type;
 
@@ -16,4 +15,3 @@ io.on('connection', client => {
 
    });
 });
-io.listen(3000);

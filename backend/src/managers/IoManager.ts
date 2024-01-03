@@ -1,9 +1,15 @@
-export class IoManager{
-    private io;
-    private static instance: IoManager;
+import http from 'http';
+import { Server } from "socket.io";
+const server = http.createServer();
 
-    private getInstance
-    constructor(io){
-        this.io = io;
+export class IoManager{
+    private static io: Server;
+
+    private static getIo(){
+        if(!this.io){
+            const io = new Server(server);
+            this.io = io;
+        }
+        return this.io;
     }
 }
